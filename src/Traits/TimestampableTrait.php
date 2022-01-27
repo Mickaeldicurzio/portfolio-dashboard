@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Trait TimestampableTrait
+ * @ORM\HasLifecycleCallbacks
  */
 trait TimestampableTrait
 {
@@ -64,5 +65,25 @@ trait TimestampableTrait
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    /**
+     * Gets triggered only on insert
+
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        $this->created = new \DateTime("now");
+    }
+
+    /**
+     * Gets triggered every time on update
+
+     * @ORM\PreUpdate
+     */
+    public function onPreUpdate()
+    {
+        $this->updated = new \DateTime("now");
     }
 }
