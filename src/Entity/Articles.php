@@ -3,11 +3,16 @@
 namespace App\Entity;
 
 use App\Repository\ArticlesRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use App\Traits\TimestampableTrait;
 
 /**
  * @ORM\Entity(repositoryClass=ArticlesRepository::class)
+ * @ApiResource(
+ *     order={"updatedAt"="ASC"},
+ *     paginationEnabled=false
+ * )
  */
 class Articles
 {
