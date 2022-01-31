@@ -10,12 +10,33 @@ use App\Traits\TimestampableTrait;
 /**
  * @ORM\Entity(repositoryClass=ArticlesRepository::class)
  * @ApiResource(
- *     order={"updatedAt"="ASC"},
- *     paginationEnabled=false
+ *  collectionOperations={
+ *      "get",
+ *      "post",
+ *      "get_by_limit"={
+ *          "route_name"="articles_by_limit",
+ *          "pagination_enabled"=false,
+ *          "openapi_context" = {
+ *              "parameters" = {
+ *                  {
+ *                      "name" = "limit",
+ *                      "in" = "query",
+ *                      "description" = "limit",
+ *                      "required" = false,
+ *                      "type" : "int",
+ *                  }
+ *              }
+ *          }
+ *      }
+ *  }
  * )
  */
 class Articles
 {
+
+    /**
+     * @Groups("articles")
+     */
 
     use TimestampableTrait;
 
